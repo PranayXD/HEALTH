@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://plus.unsplash.com/premium_photo-1705056547423-de4ef0f85bf7?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .quote {
+            color: rgb(234, 241, 9);
+            font-style: italic;
+            text-align: center;
+            margin: 10px 20px;
+            font-size: 1.2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        form {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .output {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="quote"><h1>"Take care of your body. It's the only place you have to live."</h1></div>
+    <h1 style="text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">ENTER YOUR DETAILS FOR</h1>
+    <form id="dietForm">
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required>
+
+        <label for="healthIssues">Health Issues:</label>
+        <input type="text" id="healthIssues" name="healthIssues" placeholder="e.g., Diabetes, High Blood Pressure">
+
+        <label for="dietType">Preferred Diet Type:</label>
+        <select id="dietType" name="dietType" required>
+            <option value="balanced">Balanced</option>
+            <option value="low-carb">Low Carb</option>
+            <option value="high-protein">High Protein</option>
+            <option value="vegan">Vegan</option>
+        </select>
+
+        <label for="foodPhoto">Scan Packaged Food:</label>
+        <input type="file" id="foodPhoto" name="foodPhoto" accept="image/*">
+
+        <button type="button" onclick="analyzeData()">Submit</button>
+    </form>
+
+    <div id="output" class="output" style="display: none;"></div>
+    <h1><div class="quote">Eating healthy is a form of self-respect.</h1></div>
+
+
+    <script>
+        function analyzeData() {
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+            const healthIssues = document.getElementById('healthIssues').value;
+            const dietType = document.getElementById('dietType').value;
+
+            let recommendations = '';
+
+            if (dietType === 'balanced') {
+                recommendations = 'Include a variety of fruits, vegetables, whole grains, lean proteins, and healthy fats. Avoid processed foods and excessive sugar.';
+            } else if (dietType === 'low-carb') {
+                recommendations = 'Focus on proteins, non-starchy vegetables, and healthy fats. Limit bread, pasta, and sugary foods.';
+            } else if (dietType === 'high-protein') {
+                recommendations = 'Incorporate lean meats, eggs, legumes, and dairy. Avoid excess fats and refined carbs.';
+            } else if (dietType === 'vegan') {
+                recommendations = 'Eat a variety of fruits, vegetables, grains, and legumes. Ensure you get enough B12 and iron.';
+            }
+
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            output.innerHTML = `
+                <h2>Personalized Recommendations</h2>
+                <p><strong>Weight:</strong> ${weight} kg</p>
+                <p><strong>Height:</strong> ${height} cm</p>
+                <p><strong>Health Issues:</strong> ${healthIssues || 'None'}</p>
+                <p><strong>Diet Type:</strong> ${dietType}</p>
+                <h3>Recommendations:</h3>
+                <p>${recommendations}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
